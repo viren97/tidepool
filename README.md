@@ -110,4 +110,4 @@ Details for each stage are in [docs/MVP.md](docs/MVP.md).
   GitHub integration, `tide.yaml`, setup guide, Slack commands, tech stack, milestones, improvement plan.
 
 ## License
-To be decided (Apache-2.0 proposed, so the project is easy to fork).
+[Apache License 2.0](LICENSE). Fork it, change it, ship it.
