@@ -1,0 +1,28 @@
+# Gradle / Kotlin
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+*.class
+.kotlin/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+crash.log
+
+# Local config and secrets
+values.yaml
+!deploy/helm/tidepool/values.yaml
+*.env
+github.json
+
+# OS
+.DS_Store
