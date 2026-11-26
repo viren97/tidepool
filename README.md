@@ -44,16 +44,21 @@ Tidepool gives every feature, PR or build its own environment in minutes, and ma
 - Keeping data overnight (comes later with snapshots and sleep mode).
 - A standalone CLI (planned for v1.1. Slack and the UI cover everything in the MVP).
 
-## How it works
+## Architecture
 
-```
- Slack /tide  ─┐                         ┌─> GitHub: is the build done? (Actions runs, webhooks)
- Web UI      ──┼─> tidepool-server ──────┼─> ECR: does image:tag exist?
-               │   (Spring Boot, EKS)    ├─> reads tide.yaml -> dependency graph
-               │                         └─> creates namespace <ns> on EKS:
-               │                               postgres · kafka · redis · services · routes
-               └── progress + URLs <────────── https://<svc>-<ns>.tide.acme.dev
-```
+[![Tidepool high-level design](docs/architecture/tidepool-hld.png)](docs/architecture/tidepool-hld.png)
+
+*Click the diagram for full size. The numbered red circles ① – ⑧ follow one `/tide up` request end to end, as explained in the strip at the bottom of the diagram.
+To edit it, open [`docs/architecture/tidepool-hld.excalidraw`](docs/architecture/tidepool-hld.excalidraw) in [excalidraw.com](https://excalidraw.com) (Menu → Open), then export a new PNG over `tidepool-hld.png`.*
+
+| Area | What lives there |
+|---|---|
+| **Interfaces** | Slack (`/tide` commands, a thread per env, `#tidepool-status`) and the web UI (Sign in with Slack, live progress) |
+| **tidepool-server** | One Spring Boot app in three layers: interface (Slack, UI/API, GitHub webhooks), orchestration (parser, job runner, resolver, scheduler, reconciler), providers (notifier, deployer, ECR, GitHub) |
+| **GitHub** | Service repos with `tide.yaml`, Actions runners that build and push to ECR, the Tidepool GitHub App that reports build progress |
+| **AWS** | Route53 → NLB (TLS) → Traefik on EKS; one namespace per env with its services and Postgres, Kafka, Redis; ECR, RDS, Secrets Manager, IAM |
+
+## How it works
 
 1. You ask for services and tags in Slack or the UI.
 2. Tidepool checks ECR for each image. If one is missing, it follows the GitHub build until it's ready.
