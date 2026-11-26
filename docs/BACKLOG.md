@@ -7,6 +7,12 @@ The MVP from [MVP.md](MVP.md), broken into **commit-sized chunks**. Each chunk:
 - includes tests for any logic it adds,
 - never creates or changes real cloud resources. Terraform is written and validated (`terraform validate`), never applied.
 
+**Workflow:** every chunk goes on its own branch `chunk/<id>-<slug>` (e.g. `chunk/b3-namespace-naming`)
+and gets its own pull request. Nothing is pushed straight to `main`. If an earlier chunk's PR is still
+open, the next chunk is **stacked** on that branch (PR base = that branch), with at most 3 open chunk
+PRs at a time. Merge stacked PRs oldest first, using **merge commit or rebase, not squash**, so the
+PRs stacked on top don't conflict.
+
 Chunks are done **top to bottom**. Ticking one: `- [x] … (YYYY-MM-DD)`.
 If a chunk turns out bigger than ~300 lines, split it into `a`/`b` sub-items here and do only the first part.
 
