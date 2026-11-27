@@ -22,7 +22,7 @@ Actions CI, and locally only when Docker is available.
 ---
 
 ## A. Project skeleton
-- [ ] A1. Gradle multi-module skeleton (`core`, `server`), Kotlin 2.x, JVM 21 toolchain (foojay auto-provisioning), Gradle wrapper, empty Spring Boot 4 app that starts
+- [x] A1. Gradle multi-module skeleton (`core`, `server`), Kotlin 2.x, JVM 21 toolchain (foojay auto-provisioning), Gradle wrapper, empty Spring Boot 4 app that starts (2026-11-27)
 - [ ] A2. GitHub Actions `ci.yml`: `./gradlew build` on push and PR, integration tests included (Docker available on runners)
 - [ ] A3. Actuator health/readiness endpoints + a first `@SpringBootTest`; `integration` test tag wired into Gradle (`./gradlew test` = unit only, `./gradlew integrationTest` = Docker tests)
 
