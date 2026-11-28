@@ -15,12 +15,9 @@ dependencies {
     implementation(platform(libs.spring.boot.bom))
     implementation(project(":core"))
     implementation(libs.spring.boot.starter.webmvc)
+    implementation(libs.spring.boot.starter.actuator)
     implementation(libs.kotlin.reflect)
 
-    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.spring.boot.starter.test)
     testRuntimeOnly(libs.junit.platform.launcher)
-}
-
-tasks.test {
-    useJUnitPlatform()
 }

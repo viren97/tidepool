@@ -32,10 +32,10 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v5
 
-      # Ubuntu runners have Docker, so Testcontainers (`integration`-tagged) tests can run here.
-      # Once A3 splits the tag out of `test`, add `integrationTest` to this command.
+      # `build` runs unit tests only. Ubuntu runners have Docker, so the Testcontainers
+      # (`integration`-tagged) tests run here too, via `integrationTest`.
       - name: Build and test
-        run: ./gradlew build --no-daemon --stacktrace
+        run: ./gradlew build integrationTest --no-daemon --stacktrace
 
       - name: Upload test reports
         if: failure()
