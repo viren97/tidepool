@@ -7,3 +7,15 @@ spring:
 
 server:
   port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      # /actuator/health/liveness and /actuator/health/readiness, used by the Helm chart's probes.
+      # Spring only turns these on by itself when it detects Kubernetes; on everywhere keeps it predictable.
+      probes:
+        enabled: true
